@@ -10,6 +10,8 @@ ENV NEXT_PUBLIC_GOOGLE_CLIENT_ID=$NEXT_PUBLIC_GOOGLE_CLIENT_ID
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
+# Next.js may not have a top-level public dir (favicon/fonts live in app/)
+RUN mkdir -p public
 RUN npm run build
 
 # Run stage

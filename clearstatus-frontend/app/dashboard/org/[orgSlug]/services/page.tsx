@@ -66,7 +66,8 @@ export default function ServicesPage() {
         }
         throw new Error("Org not found");
       })
-      .then(([servicesData, teamsData]: [Service[] | null, Team[] | null]) => {
+      .then((result) => {
+        const [servicesData, teamsData] = result as [Service[] | null, Team[] | null];
         setServices(Array.isArray(servicesData) ? servicesData : []);
         setTeams(Array.isArray(teamsData) ? teamsData : []);
       })
@@ -79,7 +80,8 @@ export default function ServicesPage() {
     Promise.all([
       api<Service[] | null>(`/api/orgs/${orgId}/services`),
       api<Team[] | null>(`/api/orgs/${orgId}/teams`),
-    ]).then(([servicesData, teamsData]: [Service[] | null, Team[] | null]) => {
+    ]).then((result) => {
+      const [servicesData, teamsData] = result as [Service[] | null, Team[] | null];
       setServices(Array.isArray(servicesData) ? servicesData : []);
       if (Array.isArray(teamsData)) setTeams(teamsData);
     }).catch(console.error);

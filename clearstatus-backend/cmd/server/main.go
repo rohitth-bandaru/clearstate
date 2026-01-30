@@ -126,6 +126,12 @@ func runMigrations(db *sql.DB) error {
 		migrationsDir = d
 	}
 	for _, name := range []string{"001_init.up.sql", "002_services_team_id.up.sql"} {
+		if name == "002_services_team_id.up.sql" {
+			var skip int
+			if err := db.QueryRow("SELECT 1 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'services' AND COLUMN_NAME = 'team_id' LIMIT 1").Scan(&skip); err == nil {
+				continue // team_id already exists, skip
+			}
+		}
 		path := filepath.Join(migrationsDir, name)
 		b, err := os.ReadFile(path)
 		if err != nil {

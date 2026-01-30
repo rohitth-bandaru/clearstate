@@ -4,8 +4,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-clearstatus}
       MYSQL_DATABASE: clearstatus
-    ports:
-      - "3306:3306"
+    # No host port for 3306 to avoid conflict with local MySQL; backend uses mysql:3306 internally
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
