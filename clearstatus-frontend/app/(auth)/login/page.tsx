@@ -5,6 +5,8 @@ import { GoogleLogin } from "@react-oauth/google";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { signInWithGoogle } from "@/lib/auth";
 
+const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "";
+
 export default function LoginPage() {
   const router = useRouter();
 
@@ -16,6 +18,11 @@ export default function LoginPage() {
           <CardDescription>Sign in to manage your status pages</CardDescription>
         </CardHeader>
         <CardContent>
+          {!clientId ? (
+            <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-md p-3">
+              Google sign-in is not configured. Add <code className="bg-amber-100 px-1 rounded">NEXT_PUBLIC_GOOGLE_CLIENT_ID</code> to the root <code className="bg-amber-100 px-1 rounded">.env</code> and rebuild: <code className="bg-amber-100 px-1 rounded text-xs">docker-compose up --build</code>
+            </p>
+          ) : (
           <GoogleLogin
             onSuccess={async (res) => {
               if (res.credential) {
@@ -35,6 +42,7 @@ export default function LoginPage() {
             text="signin_with"
             shape="rectangular"
           />
+          )}
         </CardContent>
       </Card>
     </div>
