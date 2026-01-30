@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS status_history;
+DROP TABLE IF EXISTS incident_updates;
+DROP TABLE IF EXISTS incident_services;
+DROP TABLE IF EXISTS incidents;
+DROP TABLE IF EXISTS services;
+DROP TABLE IF EXISTS team_members;
+DROP TABLE IF EXISTS teams;
+DROP TABLE IF EXISTS organization_members;
+DROP TABLE IF EXISTS organizations;
+DROP TABLE IF EXISTS users;

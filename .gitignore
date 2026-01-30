@@ -1,0 +1,5 @@
+# Root-level ignores for ClearStatus monorepo
+.DS_Store
+.env
+.env.*
+!.env.example
